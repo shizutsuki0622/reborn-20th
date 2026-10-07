@@ -1,0 +1,4293 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REBORN! 20TH ANNIVERSARY — FAN ART ARCHIVE</title>
+
+<style>
+/* =========================================================
+   REBORN! 20TH ANNIVERSARY FAN ART ARCHIVE
+   SINGLE HTML VERSION
+   ========================================================= */
+
+:root {
+    --black: #080808;
+    --black-2: #111111;
+    --black-3: #181818;
+
+    --gold: #b9954a;
+    --gold-light: #d8bd78;
+    --gold-dark: #765a29;
+
+    --cream: #eee8dc;
+    --paper: #f5f2eb;
+    --paper-dark: #e5dfd3;
+
+    --text: #e9e4da;
+    --muted: #a49d91;
+
+    --line: rgba(185,149,74,.45);
+
+    --magazine-max-width: 1408px;
+
+    --ease-page: cubic-bezier(.18,.72,.22,1);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    background:
+        radial-gradient(circle at 50% 0%, rgba(185,149,74,.08), transparent 35%),
+        linear-gradient(135deg, #070707, #121212 50%, #080808);
+
+    color: var(--text);
+
+    font-family:
+        "Noto Serif TC",
+        "Noto Serif CJK TC",
+        "Times New Roman",
+        serif;
+
+    overflow-x: hidden;
+}
+
+button {
+    font: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   GLOBAL DECORATION
+   ========================================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .12;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+
+    background-size: 5px 5px, 5px 5px;
+
+    mix-blend-mode: overlay;
+
+    z-index: 999;
+}
+
+
+/* =========================================================
+   TOP NAVIGATION
+   ========================================================= */
+
+.topbar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 74px;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+
+    align-items: center;
+
+    padding: 0 42px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(5,5,5,.98),
+            rgba(10,10,10,.93)
+        );
+
+    border-bottom: 1px solid rgba(185,149,74,.28);
+
+    z-index: 1000;
+
+    backdrop-filter: blur(12px);
+}
+
+.site-title {
+    justify-self: start;
+
+    font-size: 15px;
+    letter-spacing: .24em;
+
+    color: var(--gold-light);
+
+    cursor: pointer;
+
+    transition: color .3s ease;
+}
+
+.site-title:hover {
+    color: #fff;
+}
+
+.home-button {
+    justify-self: center;
+
+    border: 0;
+    background: transparent;
+
+    color: #e5e0d7;
+
+    font-size: 14px;
+    letter-spacing: .18em;
+
+    cursor: pointer;
+
+    padding: 10px 25px;
+
+    transition:
+        color .3s ease,
+        letter-spacing .3s ease;
+}
+
+.home-button:hover {
+    color: var(--gold-light);
+    letter-spacing: .25em;
+}
+
+
+/* ---------- 家族陣營 ---------- */
+
+.index-wrapper {
+    justify-self: end;
+
+    position: relative;
+}
+
+.index-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 9px 0 9px 18px;
+
+    color: var(--gold-light);
+
+    background: transparent;
+    border: 0;
+
+    font-size: 13px;
+    letter-spacing: .22em;
+
+    cursor: pointer;
+}
+
+.index-toggle::after {
+    content: "";
+
+    width: 24px;
+    height: 1px;
+
+    background: var(--gold);
+
+    transition:
+        width .3s ease,
+        background .3s ease;
+}
+
+.index-toggle:hover::after {
+    width: 38px;
+    background: #fff;
+}
+
+.index-menu {
+    position: absolute;
+
+    top: calc(100% + 15px);
+    right: 0;
+
+    width: 310px;
+
+    padding: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,20,20,.98),
+            rgba(7,7,7,.98)
+        );
+
+    border: 1px solid rgba(185,149,74,.48);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.65),
+        inset 0 0 0 1px rgba(255,255,255,.025);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(-10px);
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease,
+        visibility .3s ease;
+}
+
+.index-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.index-menu::before {
+    content: "";
+
+    position: absolute;
+
+    top: -5px;
+    right: 32px;
+
+    width: 9px;
+    height: 9px;
+
+    background: #111;
+
+    border-left: 1px solid var(--gold);
+    border-top: 1px solid var(--gold);
+
+    transform: rotate(45deg);
+}
+
+.index-menu-title {
+    padding: 5px 8px 15px;
+
+    color: var(--gold);
+
+    font-size: 11px;
+    letter-spacing: .3em;
+
+    border-bottom: 1px solid rgba(185,149,74,.25);
+}
+
+.index-item {
+    display: grid;
+
+    grid-template-columns: 38px 1fr;
+
+    align-items: center;
+
+    min-height: 56px;
+
+    padding: 8px;
+
+    border-bottom: 1px solid rgba(255,255,255,.055);
+
+    cursor: pointer;
+
+    transition:
+        background .3s ease,
+        padding-left .3s ease;
+}
+
+.index-item:last-child {
+    border-bottom: 0;
+}
+
+.index-item:hover {
+    background: rgba(185,149,74,.08);
+    padding-left: 14px;
+}
+
+.index-number {
+    color: var(--gold);
+
+    font-size: 12px;
+    letter-spacing: .12em;
+}
+
+.index-name {
+    font-size: 14px;
+    color: #e8e2d8;
+}
+
+.index-name-en {
+    display: block;
+
+    margin-top: 3px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 8px;
+    letter-spacing: .18em;
+
+    color: #777269;
+}
+
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+#home {
+    min-height: 100vh;
+
+    padding-top: 74px;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 18%,
+            rgba(185,149,74,.11),
+            transparent 40%
+        ),
+        linear-gradient(
+            180deg,
+            #090909 0%,
+            #0d0d0d 48%,
+            #080808 100%
+        );
+}
+
+
+/* ---------- Hero ---------- */
+
+.hero {
+    position: relative;
+
+    min-height: 82vh;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 760px;
+    height: 760px;
+
+    border: 1px solid rgba(185,149,74,.12);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 50px rgba(185,149,74,.015),
+        0 0 0 100px rgba(185,149,74,.01);
+
+    transform: rotate(14deg);
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 110%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(185,149,74,.45),
+            transparent
+        );
+
+    bottom: 5%;
+}
+
+.hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(900px, 90vw);
+
+    text-align: center;
+}
+
+.hero-kicker {
+    margin-bottom: 20px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+    letter-spacing: .55em;
+
+    color: var(--gold);
+
+    text-transform: uppercase;
+}
+
+.hero-title {
+    margin: 0;
+
+    font-size: clamp(65px, 9vw, 145px);
+
+    line-height: .8;
+
+    letter-spacing: -.04em;
+
+    color: #e8e1d4;
+
+    text-shadow:
+        0 2px 0 #000,
+        0 15px 50px rgba(0,0,0,.8);
+}
+
+.hero-title span {
+    color: var(--gold);
+}
+
+.hero-subtitle {
+    margin-top: 32px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 12px;
+    letter-spacing: .42em;
+
+    color: #b8b0a4;
+}
+
+.hero-description {
+    max-width: 520px;
+
+    margin: 28px auto 0;
+
+    font-size: 13px;
+
+    line-height: 2;
+
+    color: #817b71;
+}
+
+.hero-divider {
+    width: 160px;
+    height: 1px;
+
+    margin: 30px auto;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--gold),
+            transparent
+        );
+}
+
+.scroll-hint {
+    margin-top: 50px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+    letter-spacing: .35em;
+
+    color: #6e685e;
+}
+
+
+/* =========================================================
+   FACTION LIST
+   ========================================================= */
+
+.factions-section {
+    position: relative;
+
+    width: min(1080px, 90vw);
+
+    margin: 0 auto;
+
+    padding:
+        90px
+        0
+        160px;
+}
+
+.section-small-title {
+    text-align: center;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: .5em;
+
+    color: #766f63;
+
+    margin-bottom: 70px;
+}
+
+.faction-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 30px;
+}
+
+.faction-card {
+    position: relative;
+
+    width: 76%;
+
+    min-height: 190px;
+
+    display: flex;
+
+    align-items: center;
+
+    cursor: pointer;
+
+    border-top: 1px solid rgba(185,149,74,.23);
+    border-bottom: 1px solid rgba(185,149,74,.12);
+
+    transition:
+        transform .5s var(--ease-page),
+        border-color .3s ease;
+}
+
+.faction-card:nth-child(odd) {
+    margin-left: 3%;
+}
+
+.faction-card:nth-child(even) {
+    margin-left: auto;
+    margin-right: 3%;
+
+    flex-direction: row-reverse;
+
+    text-align: right;
+}
+
+.faction-card:hover {
+    transform: translateX(10px);
+    border-color: rgba(185,149,74,.65);
+}
+
+.faction-card:nth-child(even):hover {
+    transform: translateX(-10px);
+}
+
+.faction-emblem {
+    width: 160px;
+    height: 160px;
+
+    flex: 0 0 160px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.faction-emblem::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 12px;
+
+    border: 1px solid rgba(185,149,74,.32);
+
+    transform: rotate(45deg);
+
+    transition:
+        transform .5s ease,
+        border-color .3s ease;
+}
+
+.faction-card:hover .faction-emblem::before {
+    transform: rotate(135deg);
+
+    border-color: rgba(185,149,74,.7);
+}
+
+.faction-emblem img {
+    width: 112px;
+    height: 112px;
+
+    object-fit: contain;
+
+    position: relative;
+
+    z-index: 2;
+
+    filter:
+        grayscale(.15)
+        sepia(.2)
+        brightness(.8);
+
+    transition:
+        transform .5s ease,
+        filter .5s ease;
+}
+
+.faction-card:hover .faction-emblem img {
+    transform: scale(1.07);
+
+    filter:
+        grayscale(0)
+        sepia(.1)
+        brightness(1);
+}
+
+.faction-info {
+    flex: 1;
+
+    padding: 20px 34px;
+}
+
+.faction-number {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+    letter-spacing: .25em;
+
+    color: var(--gold);
+}
+
+.faction-name {
+    margin: 0;
+
+    font-size: clamp(27px, 3vw, 42px);
+
+    font-weight: 500;
+
+    letter-spacing: .08em;
+
+    color: #e8e1d6;
+}
+
+.faction-name-en {
+    margin-top: 10px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: .28em;
+
+    color: #817a70;
+}
+
+.faction-count {
+    margin-top: 17px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: .2em;
+
+    color: #5f5a53;
+}
+
+
+/* =========================================================
+   READER
+   ========================================================= */
+
+#reader {
+    display: none;
+
+    min-height: 100vh;
+
+    padding-top: 74px;
+
+    background:
+        radial-gradient(
+            ellipse at center top,
+            rgba(185,149,74,.09),
+            transparent 42%
+        ),
+        #090909;
+}
+
+#reader.active {
+    display: block;
+}
+
+.reader-header {
+    width: min(1650px, 96vw);
+
+    margin: 0 auto;
+
+    padding: 28px 0 16px;
+
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.reader-category {
+    font-size: 12px;
+
+    letter-spacing: .28em;
+
+    color: var(--gold);
+}
+
+.reader-category-en {
+    margin-top: 5px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: .28em;
+
+    color: #686159;
+}
+
+.reader-counter {
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: .2em;
+
+    color: #686159;
+}
+
+
+/* =========================================================
+   MAGAZINE
+   ========================================================= */
+
+.reader-stage {
+    position: relative;
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    padding:
+        10px
+        0
+        70px;
+}
+
+.magazine {
+    position: relative;
+
+    /*
+       每一頁固定使用 B5 直式比例：176 × 250 mm。
+       整本打開後是兩張 B5 並排：352 × 250 mm。
+
+       寬度同時受「瀏覽器寬度」與「瀏覽器高度」限制，
+       所以不論螢幕尺寸怎麼變，都不會把 B5 比例拉壞。
+    */
+
+    width: min(94vw, var(--magazine-max-width), calc((100vh - 190px) * 352 / 250));
+
+    height: auto;
+
+    aspect-ratio: 352 / 250;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    perspective: 2800px;
+
+    box-shadow:
+        0 35px 45px rgba(0,0,0,.65);
+
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+
+    transform-origin: center center;
+}
+
+
+/* ---------- 書背 ---------- */
+
+.magazine::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+
+    width: 7px;
+    height: 100%;
+
+    transform: translateX(-50%);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.045),
+            rgba(0,0,0,.015),
+            rgba(0,0,0,.045)
+        );
+
+    z-index: 80;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   B5 PAGE / FULL-BLEED IMAGE SLOTS
+   ========================================================= */
+
+/*
+   每一張內頁都是獨立的 B5 頁面：
+   176 × 250 mm。
+
+   頁面本身不放任何文字、裝飾線、浮水印或背景圖案。
+   只預留滿版圖片容器，之後可直接在容器內放入 <img>。
+*/
+
+.page,
+.blank-page,
+.full-bleed-page {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    background: #fff;
+    color: #111;
+}
+
+.sheet-face > .page,
+.sheet-face > .blank-page,
+.sheet-face > .full-bleed-page {
+    width: 100%;
+    height: 100%;
+}
+
+/*
+   滿版圖片預留區：
+   沒有邊框、文字、陰影或裝飾。
+   放入圖片後會自動填滿整個 B5 頁面。
+*/
+.full-bleed-image-slot {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+}
+
+.full-bleed-image-slot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* =========================================================
+   CHAPTER PAGE
+   ========================================================= */
+
+.chapter-page {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding:
+        7%
+        8%;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #f6f1e8 0%,
+            #eee7da 48%,
+            #e4dacb 100%
+        );
+
+    color: #28231c;
+}
+
+.chapter-page .chapter-inner-glow {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,255,255,.22),
+            transparent 58%
+        );
+}
+
+.chapter-page::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 3.5%;
+
+    border: 1px solid rgba(111,80,31,.58);
+
+    pointer-events: none;
+}
+
+.chapter-page::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 5.4%;
+
+    border: 1px solid rgba(111,80,31,.20);
+
+    pointer-events: none;
+}
+
+.chapter-corner {
+    position: absolute;
+
+    width: 7%;
+    height: 7%;
+
+    max-width: 58px;
+    max-height: 58px;
+
+    min-width: 25px;
+    min-height: 25px;
+
+    border-color: #9a7737;
+    border-style: solid;
+
+    z-index: 3;
+}
+
+.chapter-corner.tl {
+    top: 5.1%;
+    left: 5.1%;
+
+    border-width: 1px 0 0 1px;
+}
+
+.chapter-corner.tr {
+    top: 5.1%;
+    right: 5.1%;
+
+    border-width: 1px 1px 0 0;
+}
+
+.chapter-corner.bl {
+    bottom: 5.1%;
+    left: 5.1%;
+
+    border-width: 0 0 1px 1px;
+}
+
+.chapter-corner.br {
+    bottom: 5.1%;
+    right: 5.1%;
+
+    border-width: 0 1px 1px 0;
+}
+
+.chapter-number {
+    position: relative;
+
+    z-index: 4;
+
+    flex-shrink: 0;
+
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(7px, .7vw, 11px);
+
+    letter-spacing: .5em;
+
+    color: #7c5c28;
+
+    text-align: center;
+}
+
+.chapter-emblem {
+    position: relative;
+
+    width: min(28%, 190px);
+
+    aspect-ratio: 1 / 1;
+
+    margin:
+        clamp(18px, 4%, 38px)
+        0
+        clamp(16px, 3.5%, 32px);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    z-index: 4;
+}
+
+.chapter-emblem::before,
+.chapter-emblem::after {
+    content: "";
+
+    position: absolute;
+
+    width: 72%;
+    height: 72%;
+
+    border: 1px solid rgba(133,99,41,.38);
+
+    transform: rotate(45deg);
+}
+
+.chapter-emblem::before {
+    width: 88%;
+    height: 88%;
+}
+
+.chapter-emblem::after {
+    width: 68%;
+    height: 68%;
+
+    border-color: rgba(133,99,41,.22);
+}
+
+.chapter-emblem img {
+    width: 58%;
+    height: 58%;
+
+    object-fit: contain;
+
+    position: relative;
+
+    z-index: 2;
+
+    opacity: .9;
+
+    filter:
+        sepia(.35)
+        contrast(.9);
+}
+
+.chapter-label {
+    position: relative;
+
+    z-index: 4;
+
+    flex-shrink: 0;
+
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(6px, .65vw, 10px);
+
+    letter-spacing: .42em;
+
+    color: #90713c;
+
+    margin-bottom: clamp(7px, 1.4%, 15px);
+
+    text-align: center;
+}
+
+.chapter-title {
+    position: relative;
+
+    z-index: 4;
+
+    margin: 0;
+
+    max-width: 88%;
+
+    font-size: clamp(25px, 3.6vw, 62px);
+
+    font-weight: 500;
+
+    letter-spacing: .08em;
+
+    line-height: 1.15;
+
+    color: #28231c;
+
+    text-align: center;
+
+    overflow-wrap: anywhere;
+}
+
+.chapter-title-en {
+    position: relative;
+
+    z-index: 4;
+
+    margin-top: clamp(7px, 1.1%, 13px);
+
+    max-width: 82%;
+
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(6px, .72vw, 11px);
+
+    letter-spacing: .34em;
+
+    line-height: 1.5;
+
+    color: #766b5b;
+
+    text-align: center;
+
+    overflow-wrap: anywhere;
+}
+
+.chapter-rule {
+    position: relative;
+
+    z-index: 4;
+
+    width: 22%;
+
+    max-width: 135px;
+    min-width: 65px;
+
+    height: 1px;
+
+    margin:
+        clamp(14px, 2.6%, 28px)
+        0
+        clamp(9px, 1.5%, 18px);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #977334,
+            transparent
+        );
+}
+
+.chapter-count {
+    position: relative;
+
+    z-index: 4;
+
+    flex-shrink: 0;
+
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(6px, .58vw, 9px);
+
+    letter-spacing: .28em;
+
+    color: #877b6b;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   OPENING BLANK PAGE
+   ========================================================= */
+
+.opening-page {
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at 75% 25%,
+            rgba(185,149,74,.10),
+            transparent 35%
+        ),
+        #eee9df;
+
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    padding: clamp(25px, 3.3%, 45px);
+
+    overflow: hidden;
+}
+
+.opening-page::after {
+    content: "";
+
+    position: absolute;
+
+    right: clamp(25px, 3.3%, 45px);
+    bottom: clamp(25px, 3.3%, 45px);
+
+    width: clamp(110px, 14%, 190px);
+    height: clamp(110px, 14%, 190px);
+
+    border: 1px solid rgba(120,90,42,.15);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(120,90,42,.06),
+            transparent 70%
+        );
+
+    border-radius: 50%;
+}
+
+.opening-mark {
+    position: relative;
+
+    z-index: 2;
+
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(7px, .65vw, 9px);
+
+    letter-spacing: .3em;
+
+    color: #857967;
+}
+
+
+/* =========================================================
+   CHARACTER IMAGE PAGE
+   ========================================================= */
+
+.art-page {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    background: #f2efe8;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   ★ 直式 A4
+   ★ 上下切齊頁面
+   ★ 左右依比例自然留白
+   ★ 不裁切 / 不變形 / 無裝飾
+   ========================================================= */
+
+.art-page:not(.landscape-art) .a4-frame {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: transparent;
+
+    min-width: 0;
+    min-height: 0;
+}
+
+.art-page:not(.landscape-art) .a4-frame img {
+    display: block;
+
+    width: auto;
+    height: 100%;
+
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain;
+
+    object-position: center;
+
+    box-shadow: none;
+    border: 0;
+}
+
+
+/* =========================================================
+   IMAGE PLACEHOLDER
+   ========================================================= */
+
+.image-placeholder {
+    width: min(82%, 620px);
+
+    max-height: 100%;
+
+    aspect-ratio: 210 / 297;
+
+    border: 1px solid rgba(70,60,48,.22);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    color: #9a9287;
+
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(7px, .7vw, 10px);
+
+    letter-spacing: .22em;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.25),
+            rgba(0,0,0,.015)
+        );
+}
+
+
+/* =========================================================
+   ★ 橫式 A4
+   ★ 固定左下
+   ★ 不使用動畫中的尺寸變化
+   ★ 圖片一開始即保持完整
+   ========================================================= */
+
+.art-page.landscape-art {
+    position: relative;
+
+    display: block;
+
+    padding: 0;
+
+    overflow: visible;
+
+    background: transparent;
+
+    z-index: 30;
+}
+
+
+/*
+   左頁本身的紙張背景。
+   只填滿左側，不會延伸覆蓋右頁。
+*/
+
+.landscape-art::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: #f2efe8;
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+
+/*
+   橫式圖片容器：
+   從翻頁一開始就固定在左下角。
+*/
+
+.landscape-art .a4-frame {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 200%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: flex-start;
+
+    overflow: visible;
+
+    min-width: 0;
+    min-height: 0;
+
+    pointer-events: none;
+
+    z-index: 50;
+}
+
+.landscape-art .a4-frame img {
+    display: block;
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: auto;
+
+    height: 100%;
+
+    max-width: none;
+    max-height: none;
+
+    object-fit: contain;
+
+    object-position: left bottom;
+
+    box-shadow: none;
+    border: 0;
+
+    pointer-events: none;
+
+    /*
+       A4 landscape = 297 / 210 = 1.414
+       高度 100% 時自然延伸到右側。
+    */
+}
+
+.landscape-art .image-placeholder {
+    display: none !important;
+}
+
+
+/*
+   橫式 art sheet 及其兩面都不能裁切。
+*/
+
+.sheet:has(.landscape-art) {
+    overflow: visible;
+}
+
+.sheet:has(.landscape-art) .sheet-face {
+    overflow: visible;
+}
+
+.sheet:has(.landscape-art) .sheet-back {
+    overflow: visible;
+}
+
+
+/* =========================================================
+   CHARACTER INFO PAGE
+   ========================================================= */
+
+.info-page {
+    position: relative;
+
+    padding:
+        clamp(25px, 8%, 90px)
+        clamp(28px, 9%, 100px)
+        clamp(25px, 7%, 80px);
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            120deg,
+            #f4f0e8,
+            #ece7dd
+        );
+}
+
+.info-watermark {
+    position: absolute;
+
+    right: -5%;
+    bottom: -6%;
+
+    width: 48%;
+
+    opacity: .085;
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+.info-watermark img {
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+
+    filter:
+        sepia(.4)
+        contrast(.7);
+}
+
+.info-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+    min-height: 0;
+}
+
+.info-topline {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom: clamp(8px, 1.5%, 13px);
+
+    border-bottom: 1px solid rgba(68,58,47,.35);
+
+    gap: 15px;
+}
+
+.info-index {
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(7px, .62vw, 9px);
+
+    letter-spacing: .3em;
+
+    color: #8c785c;
+}
+
+.info-series {
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(6px, .55vw, 8px);
+
+    letter-spacing: .23em;
+
+    color: #9b9488;
+
+    text-align: right;
+}
+
+.character-name-block {
+    margin-top: clamp(25px, 8%, 70px);
+
+    max-width: 90%;
+}
+
+.character-name {
+    margin: 0;
+
+    font-size: clamp(30px, 4vw, 72px);
+
+    font-weight: 400;
+
+    letter-spacing: .06em;
+
+    line-height: .98;
+
+    color: #1c1b19;
+}
+
+.character-name-en {
+    margin-top: clamp(7px, 1.3%, 12px);
+
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(7px, .75vw, 11px);
+
+    letter-spacing: .34em;
+
+    color: #777066;
+}
+
+.gold-rule {
+    width: 100%;
+
+    height: 1px;
+
+    margin: clamp(18px, 3%, 28px) 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #9d7936,
+            rgba(157,121,54,.18),
+            transparent
+        );
+}
+
+.character-meta {
+    display: grid;
+
+    grid-template-columns: auto 1fr;
+
+    column-gap: clamp(12px, 2.2%, 24px);
+
+    row-gap: clamp(4px, .7%, 7px);
+
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(7px, .68vw, 10px);
+
+    color: #777067;
+}
+
+.character-meta strong {
+    color: #4d463d;
+
+    font-weight: 600;
+}
+
+.character-quote {
+    margin-top: auto;
+
+    max-width: 80%;
+
+    padding-left: clamp(10px, 1.6%, 18px);
+
+    border-left: 2px solid var(--gold);
+
+    font-size: clamp(13px, 1.7vw, 26px);
+
+    line-height: 1.7;
+
+    color: #36312b;
+
+    letter-spacing: .04em;
+}
+
+.character-description {
+    margin-top: clamp(18px, 3.5%, 30px);
+
+    max-width: 82%;
+
+    column-count: 2;
+
+    column-gap: clamp(16px, 2.8%, 28px);
+
+    font-size: clamp(8px, .72vw, 11px);
+
+    line-height: 2;
+
+    color: #777067;
+
+    text-align: justify;
+}
+
+.character-description::first-letter {
+    font-size: clamp(24px, 2.5vw, 32px);
+
+    float: left;
+
+    line-height: .8;
+
+    padding-right: 5px;
+
+    color: #9b793b;
+}
+
+.info-footer {
+    margin-top: clamp(18px, 3.5%, 30px);
+
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.info-credit {
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(6px, .55vw, 8px);
+
+    letter-spacing: .16em;
+
+    color: #91897e;
+}
+
+.info-page-number {
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(7px, .65vw, 10px);
+
+    letter-spacing: .15em;
+
+    color: #806735;
+}
+
+
+/* =========================================================
+   ★ 橫式角色介紹頁
+   ★ 名稱放在橫式圖片上方空間
+   ★ 不使用會遮住圖片的裝飾
+   ========================================================= */
+
+.info-page.landscape-info {
+    position: relative;
+
+    padding:
+        clamp(24px, 6%, 65px)
+        clamp(28px, 8%, 90px)
+        clamp(22px, 6%, 65px);
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            120deg,
+            #f4f0e8,
+            #ece7dd
+        );
+}
+
+
+/*
+   橫式頁不顯示浮水印。
+   避免任何東西蓋到跨頁圖片。
+*/
+
+.landscape-info .info-watermark {
+    display: none;
+}
+
+.landscape-info .info-content {
+    position: relative;
+
+    z-index: 100;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+/*
+   最上方保留原本的頁碼資訊，
+   但不放任何裝飾在圖片上。
+*/
+
+.landscape-info .info-topline {
+    position: relative;
+
+    z-index: 100;
+
+    width: 100%;
+
+    border-bottom: 0;
+
+    padding-bottom: 0;
+}
+
+
+/*
+   角色名稱：
+   放在橫式圖片上方的左側空間。
+*/
+
+.landscape-info .character-name-block {
+    position: absolute;
+
+    top: clamp(20px, 4%, 42px);
+    left: 0;
+
+    width: 42%;
+    max-width: 42%;
+
+    margin-top: 0;
+
+    z-index: 120;
+}
+
+.landscape-info .character-name {
+    font-size: clamp(25px, 3.1vw, 54px);
+
+    line-height: 1;
+
+    overflow-wrap: anywhere;
+}
+
+.landscape-info .character-name-en {
+    margin-top: 9px;
+}
+
+
+/*
+   橫式頁不使用金線。
+*/
+
+.landscape-info .gold-rule {
+    display: none;
+}
+
+
+/*
+   metadata 放在名稱附近，
+   不覆蓋圖片。
+*/
+
+.landscape-info .character-meta {
+    position: absolute;
+
+    left: 0;
+
+    top: clamp(105px, 22%, 180px);
+
+    width: 42%;
+
+    grid-template-columns: auto 1fr;
+
+    row-gap: 6px;
+
+    z-index: 120;
+}
+
+
+/*
+   介紹文字放在右上方。
+*/
+
+.landscape-info .character-description {
+    position: absolute;
+
+    right: 0;
+
+    top: clamp(20px, 4%, 42px);
+
+    width: 43%;
+    max-width: 43%;
+
+    margin-top: 0;
+
+    column-count: 1;
+
+    font-size: clamp(8px, .72vw, 11px);
+
+    line-height: 2;
+
+    text-align: justify;
+
+    z-index: 120;
+}
+
+
+/*
+   Quote 改放在右側較下方。
+*/
+
+.landscape-info .character-quote {
+    position: absolute;
+
+    right: 0;
+
+    top: 52%;
+
+    width: 43%;
+    max-width: 43%;
+
+    margin-top: 0;
+
+    padding-left: clamp(10px, 1.6%, 18px);
+
+    font-size: clamp(11px, 1.25vw, 19px);
+
+    line-height: 1.6;
+
+    z-index: 120;
+}
+
+.landscape-info .info-footer {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    margin-top: 0;
+
+    z-index: 120;
+}
+
+
+/* =========================================================
+   PAGE SHEETS / 3D FLIP
+   ========================================================= */
+
+#sheets {
+    position: absolute;
+
+    inset: 0;
+
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+
+    pointer-events: none;
+}
+
+.sheet {
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    width: 50%;
+    height: 100%;
+
+    transform-origin: left center;
+
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+
+    transform: translateZ(0);
+
+    transition:
+        transform 1.35s var(--ease-page);
+
+    z-index: 100;
+
+    cursor: default;
+
+    will-change: transform;
+
+    box-shadow:
+        -3px 3px 8px rgba(0,0,0,.055);
+
+    pointer-events: none;
+}
+
+.sheet.flipped {
+    transform:
+        translateZ(0)
+        rotateY(-180deg);
+}
+
+.sheet-face {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: var(--paper);
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+}
+
+.sheet-back {
+    transform:
+        rotateY(180deg)
+        translateZ(.01px);
+}
+
+.sheet:has(.landscape-art) .sheet-back {
+    overflow: visible;
+}
+
+
+/*
+   保留原本極淡的翻頁邊緣，
+   但橫式圖片本身不會受到它影響。
+*/
+
+.sheet::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: -2px;
+
+    width: 3px;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.018),
+            rgba(255,255,255,.35),
+            rgba(0,0,0,.055)
+        );
+
+    z-index: 10;
+
+    pointer-events: none;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+
+/* =========================================================
+   CLICK AREAS + ARROWS
+   ========================================================= */
+
+.page-click-left,
+.page-click-right {
+    position: absolute;
+
+    top: 0;
+
+    width: 50%;
+    height: 100%;
+
+    z-index: 1200;
+
+    cursor: pointer;
+
+    pointer-events: auto;
+
+    display: flex;
+
+    align-items: center;
+}
+
+.page-click-left {
+    left: 0;
+
+    justify-content: flex-start;
+}
+
+.page-click-right {
+    right: 0;
+
+    justify-content: flex-end;
+}
+
+
+/*
+   左右箭頭。
+   放在書本最外側的空白區。
+*/
+
+.page-click-left::before,
+.page-click-right::before {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 80px;
+
+    color: rgba(80,68,52,.48);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 46px;
+
+    font-weight: 300;
+
+    line-height: 1;
+
+    opacity: .55;
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease,
+        color .3s ease;
+
+    pointer-events: none;
+}
+
+.page-click-left::before {
+    content: "‹";
+
+    margin-left: 8px;
+}
+
+.page-click-right::before {
+    content: "›";
+
+    margin-right: 8px;
+}
+
+.page-click-left:hover::before,
+.page-click-right:hover::before {
+    color: #806735;
+
+    opacity: .9;
+}
+
+.page-click-left:hover::before {
+    transform: translateX(-3px);
+}
+
+.page-click-right:hover::before {
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   READER BOTTOM
+   ========================================================= */
+
+.reader-bottom {
+    width: min(1000px, 80vw);
+
+    margin: -30px auto 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.reader-progress {
+    width: 100%;
+    height: 1px;
+
+    background: rgba(185,149,74,.15);
+
+    overflow: hidden;
+}
+
+.reader-progress-fill {
+    height: 100%;
+
+    width: 0%;
+
+    background: var(--gold);
+
+    transition: width .6s ease;
+}
+
+.reader-page-count {
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: .28em;
+
+    color: #70695f;
+}
+
+
+/* =========================================================
+   END / CATEGORY TRANSITION
+   ========================================================= */
+
+.category-transition {
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        rgba(5,5,5,.94);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity .4s ease,
+        visibility .4s ease;
+
+    z-index: 2000;
+}
+
+.category-transition.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.transition-inner {
+    text-align: center;
+}
+
+.transition-number {
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    letter-spacing: .4em;
+
+    color: var(--gold);
+}
+
+.transition-title {
+    margin-top: 20px;
+
+    font-size: 40px;
+
+    color: #eee8dd;
+}
+
+.transition-line {
+    width: 100px;
+    height: 1px;
+
+    margin: 20px auto;
+
+    background: var(--gold);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    :root {
+        --magazine-max-width: 1408px;
+    }
+
+    .topbar {
+        padding: 0 20px;
+    }
+
+    .site-title {
+        font-size: 11px;
+        letter-spacing: .16em;
+    }
+
+    .home-button {
+        font-size: 11px;
+    }
+
+    .faction-card {
+        width: 88%;
+    }
+
+    .faction-emblem {
+        width: 130px;
+        height: 130px;
+        flex-basis: 130px;
+    }
+
+    .faction-emblem img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .character-description {
+        column-count: 1;
+    }
+
+    .landscape-info .character-description {
+        column-count: 1;
+    }
+}
+
+
+@media (max-width: 760px) {
+
+    :root {
+        --magazine-max-width: 1408px;
+    }
+
+    .topbar {
+        height: 62px;
+
+        grid-template-columns: 1fr auto;
+
+        padding: 0 15px;
+    }
+
+    .home-button {
+        display: none;
+    }
+
+    .site-title {
+        font-size: 9px;
+    }
+
+    #home {
+        padding-top: 62px;
+    }
+
+    #reader {
+        padding-top: 62px;
+    }
+
+    .hero {
+        min-height: 72vh;
+    }
+
+    .hero-title {
+        font-size: 62px;
+    }
+
+    .hero-subtitle {
+        font-size: 8px;
+        letter-spacing: .25em;
+    }
+
+    .factions-section {
+        width: 94vw;
+    }
+
+    .faction-card,
+    .faction-card:nth-child(even) {
+        width: 100%;
+
+        margin-left: 0;
+        margin-right: 0;
+
+        min-height: 140px;
+    }
+
+    .faction-emblem {
+        width: 105px;
+        height: 105px;
+        flex-basis: 105px;
+    }
+
+    .faction-emblem img {
+        width: 72px;
+        height: 72px;
+    }
+
+    .faction-info {
+        padding: 15px;
+    }
+
+    .faction-name {
+        font-size: 24px;
+    }
+
+    .faction-name-en {
+        font-size: 7px;
+    }
+
+    .reader-header {
+        padding: 20px 14px 10px;
+    }
+
+    .reader-category {
+        font-size: 9px;
+    }
+
+    .magazine {
+        min-height: 0;
+    }
+
+    .chapter-page {
+        padding: 25px;
+    }
+
+    .chapter-emblem {
+        width: 100px;
+        height: 100px;
+    }
+
+    .chapter-emblem img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .chapter-title {
+        font-size: 25px;
+    }
+
+    .chapter-title-en {
+        font-size: 7px;
+    }
+
+    .info-page {
+        padding: 8%;
+    }
+
+    .character-name {
+        font-size: 29px;
+    }
+
+    .character-name-en {
+        font-size: 7px;
+    }
+
+    .character-meta {
+        font-size: 7px;
+    }
+
+    .character-quote {
+        font-size: 12px;
+    }
+
+    .character-description {
+        font-size: 8px;
+        line-height: 1.65;
+    }
+
+    .info-watermark {
+        width: 55%;
+        right: -10%;
+        bottom: -5%;
+    }
+
+
+    /* ---------- 手機橫式角色 ---------- */
+
+    .landscape-info {
+        padding: 6% !important;
+    }
+
+    .landscape-info .character-name-block {
+        top: 8%;
+
+        width: 42%;
+        max-width: 42%;
+    }
+
+    .landscape-info .character-name {
+        font-size: 20px;
+    }
+
+    .landscape-info .character-name-en {
+        font-size: 6px;
+    }
+
+    .landscape-info .character-meta {
+        top: 30%;
+
+        width: 42%;
+
+        font-size: 6px;
+    }
+
+    .landscape-info .character-description {
+        top: 8%;
+
+        width: 43%;
+        max-width: 43%;
+
+        font-size: 7px;
+        line-height: 1.65;
+    }
+
+    .landscape-info .character-quote {
+        top: 58%;
+
+        width: 43%;
+        max-width: 43%;
+
+        font-size: 9px;
+    }
+
+    .landscape-art .a4-frame img {
+        height: 100%;
+        width: auto;
+    }
+
+    .page-click-left::before,
+    .page-click-right::before {
+        width: 28px;
+        height: 60px;
+
+        font-size: 34px;
+    }
+
+    .page-click-left::before {
+        margin-left: 2px;
+    }
+
+    .page-click-right::before {
+        margin-right: 2px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     TOP BAR
+     ========================================================= -->
+
+<header class="topbar">
+
+    <div
+        class="site-title"
+        id="siteTitle"
+        onclick="goHome()"
+    >
+        REBORN! 20TH ANNIVERSARY
+    </div>
+
+
+    <button
+        class="home-button"
+        onclick="goHome()"
+    >
+        返回首頁
+    </button>
+
+
+    <div class="index-wrapper">
+
+        <button
+            class="index-toggle"
+            id="indexToggle"
+            onclick="toggleIndex()"
+        >
+            家族陣營
+        </button>
+
+
+        <div
+            class="index-menu"
+            id="indexMenu"
+        >
+
+            <div class="index-menu-title">
+                FAMILY FACTIONS
+            </div>
+
+            <div id="indexItems"></div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     HOME
+     ========================================================= -->
+
+<main id="home">
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-kicker">
+                KATEKYO HITMAN
+            </div>
+
+            <h1 class="hero-title">
+                <span>REBORN!</span>
+            </h1>
+
+            <div class="hero-subtitle">
+                20TH ANNIVERSARY
+                &nbsp; / &nbsp;
+                FAN ART ARCHIVE
+            </div>
+
+            <div class="hero-divider"></div>
+
+            <p class="hero-description">
+                The past, the present, and the future.<br>
+                An unofficial fan-made archive dedicated to
+                the families, guardians, and characters of
+                KATEKYO HITMAN REBORN!
+            </p>
+
+            <div class="scroll-hint">
+                SCROLL TO EXPLORE
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="factions-section">
+
+        <div class="section-small-title">
+            FAMILY ARCHIVE
+        </div>
+
+        <div
+            class="faction-list"
+            id="factionList"
+        ></div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================================================
+     READER
+     ========================================================= -->
+
+<section id="reader">
+
+    <div class="reader-header">
+
+        <div>
+
+            <div
+                class="reader-category"
+                id="readerCategory"
+            ></div>
+
+            <div
+                class="reader-category-en"
+                id="readerCategoryEn"
+            ></div>
+
+        </div>
+
+
+        <div
+            class="reader-counter"
+            id="readerCounter"
+        ></div>
+
+    </div>
+
+
+    <div class="reader-stage">
+
+        <div
+            class="magazine"
+            id="magazine"
+        >
+
+            <div
+                class="page"
+                id="baseLeft"
+            ></div>
+
+
+            <div id="sheets"></div>
+
+
+            <div
+                class="page-click-left"
+                id="clickLeft"
+                onclick="previousPage(event)"
+                aria-label="上一頁"
+                title="上一頁"
+            ></div>
+
+
+            <div
+                class="page-click-right"
+                id="clickRight"
+                onclick="nextPage(event)"
+                aria-label="下一頁"
+                title="下一頁"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="reader-bottom">
+
+        <div class="reader-progress">
+
+            <div
+                class="reader-progress-fill"
+                id="readerProgress"
+            ></div>
+
+        </div>
+
+
+        <div
+            class="reader-page-count"
+            id="readerPageCount"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CATEGORY TRANSITION
+     ========================================================= -->
+
+<div
+    class="category-transition"
+    id="categoryTransition"
+>
+
+    <div class="transition-inner">
+
+        <div
+            class="transition-number"
+            id="transitionNumber"
+        ></div>
+
+        <div
+            class="transition-title"
+            id="transitionTitle"
+        ></div>
+
+        <div class="transition-line"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   SITE DATA
+   ========================================================= */
+
+/*
+   圖片只需要填檔名即可。
+
+   chapterImages = 每個陣營進入角色之前的「章節跨頁」，順序為「左頁、右頁」
+   pageImages    = 角色內頁，依照「角色01左頁、角色01右頁、角色02左頁、角色02右頁……」排列
+
+   例如：
+   chapterImages: ["chapter-left.jpg", "chapter-right.jpg"],
+   pageImages: [
+       "01-left.jpg", "01-right.jpg",
+       "02-left.jpg", "02-right.jpg"
+   ]
+
+   程式會自動讀取：assets/works/陣營ID/檔名
+   留空 "" = 該頁純白。
+*/
+
+const factionDefinitions = [
+
+    {
+        id: "vongola",
+        name: "彭哥列家族",
+        nameEn: "VONGOLA FAMILY",
+        count: 14,
+        emblem: "assets/emblems/vongola.png",
+        chapterImages: ["vongola-1.png", "vongola-2.png"],
+        pageImages: ["01.png", "02.png", "03.png", "04.png", "05.png", "06.png", "07.png", "08.png", "09.png", "10.png", "11.png", "12.png", "13.png", "14.png", "15.png", "16.png", "17.png", "18.png", "19.png", "20.png", "21.png", "22.png", "23.png", "24.png", "25.png", "26.png", "27.png", "28.png"]
+    },
+
+    {
+        id: "varia",
+        name: "瓦利亞",
+        nameEn: "VARIA",
+        count: 4,
+        emblem: "assets/emblems/varia.png",
+        chapterImages: ["varia-1.png", "varia-2.png"],
+        pageImages: ["29.png", "30.png", "31.png", "32.png", "33.png", "34.png", "35.png", "36.png"]
+    },
+
+    {
+        id: "millefiore",
+        name: "米爾菲歐雷家族",
+        nameEn: "MILLEFIORE FAMILY",
+        count: 6,
+        emblem: "assets/emblems/millefiore.png",
+        chapterImages: ["millefiore-1.png", "millefiore-2.png"],
+        pageImages: ["37.png", "38.png", "39.png", "40.png", "41.png", "42.png", "43.png", "44.png", "45.png", "46.png", "47.png", "48.png"]
+    },
+
+    {
+        id: "simon",
+        name: "西蒙家族",
+        nameEn: "SIMON FAMILY",
+        count: 1,
+        emblem: "assets/emblems/simon.png",
+        chapterImages: ["simon-1.png", "simon-2.png"],
+        pageImages: ["49.png", "50.png"]
+    },
+
+    {
+        id: "kokuyo",
+        name: "黑曜中學",
+        nameEn: "KOKUYO",
+        count: 2,
+        emblem: "assets/emblems/kokuyo.png",
+        chapterImages: ["kokuyo-1.png", "kokuyo-2.png"],
+        pageImages: ["51.png", "52.png", "53.png", "54.png"]
+    },
+
+    {
+        id: "arcobaleno",
+        name: "阿爾柯巴雷諾",
+        nameEn: "ARCOBALENO",
+        count: 4,
+        emblem: "assets/emblems/arcobaleno.png",
+        chapterImages: ["arcobaleno-1.png", "arcobaleno-2.png"],
+        pageImages: ["55.png", "56.png", "57.png", "58.png", "59.png", "60.png", "61.png", "62.png"]
+    },
+
+    {
+        id: "first-vongola",
+        name: "初代彭哥列家族",
+        nameEn: "FIRST GENERATION VONGOLA",
+        count: 4,
+        emblem: "assets/emblems/first-vongola.png",
+        chapterImages: ["first-vongola-1.png", "first-vongola-2.png"],
+        pageImages: ["63.png", "64.png", "65.png", "66.png", "67.png", "68.png", "69.png", "70.png"]
+    }
+
+];
+
+
+/* =========================================================
+   產生角色資料
+   ========================================================= */
+
+function createCharacters(faction) {
+
+    const characters = [];
+
+    for (
+        let i = 1;
+        i <= faction.count;
+        i++
+    ) {
+
+        const number =
+            String(i).padStart(2, "0");
+
+
+        /*
+           西蒙家族目前只有一位角色，
+           並指定為橫式 A4。
+        */
+
+        const isLandscape =
+            faction.id === "simon";
+
+
+        characters.push({
+
+            number,
+
+            name:
+                `角色 ${number}`,
+
+            nameEn:
+                `CHARACTER ${number}`,
+
+            image:
+                `assets/works/${faction.id}/${number}.jpg`,
+
+            orientation:
+                isLandscape
+                ? "landscape"
+                : "portrait",
+
+            quote:
+                "「在這個家族之中，總會有一個屬於自己的位置。」",
+
+            description:
+                "這裡預留角色介紹文字。你可以在這裡放置角色背景、性格、經歷、能力、重要事件或其他作品介紹內容。排版會自動以時尚雜誌風格呈現，並保留足夠的留白與閱讀空間。"
+
+        });
+
+    }
+
+    return characters;
+}
+
+
+/* =========================================================
+   建立完整分類資料
+   ========================================================= */
+
+const factions =
+    factionDefinitions.map(
+        faction => ({
+            ...faction,
+            characters:
+                createCharacters(faction)
+        })
+    );
+
+
+/* =========================================================
+   DOM
+   ========================================================= */
+
+const home =
+    document.getElementById("home");
+
+const reader =
+    document.getElementById("reader");
+
+const factionList =
+    document.getElementById("factionList");
+
+const indexItems =
+    document.getElementById("indexItems");
+
+const indexMenu =
+    document.getElementById("indexMenu");
+
+const magazine =
+    document.getElementById("magazine");
+
+const sheetsContainer =
+    document.getElementById("sheets");
+
+const baseLeft =
+    document.getElementById("baseLeft");
+
+const clickLeft =
+    document.getElementById("clickLeft");
+
+const clickRight =
+    document.getElementById("clickRight");
+
+const readerCategory =
+    document.getElementById("readerCategory");
+
+const readerCategoryEn =
+    document.getElementById("readerCategoryEn");
+
+const readerCounter =
+    document.getElementById("readerCounter");
+
+const readerPageCount =
+    document.getElementById("readerPageCount");
+
+const readerProgress =
+    document.getElementById("readerProgress");
+
+
+/* =========================================================
+   首頁分類
+   ========================================================= */
+
+function buildFactionList() {
+
+    factionList.innerHTML = "";
+
+    factions.forEach(
+        (faction, index) => {
+
+            const card =
+                document.createElement("article");
+
+            card.className =
+                "faction-card";
+
+            card.innerHTML = `
+
+                <div class="faction-emblem">
+
+                    <img
+                        src="${faction.emblem}"
+                        alt="${faction.name}"
+                        onerror="this.style.display='none'"
+                    >
+
+                </div>
+
+
+                <div class="faction-info">
+
+                    <span class="faction-number">
+                        ${String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    <h2 class="faction-name">
+                        ${faction.name}
+                    </h2>
+
+                    <div class="faction-name-en">
+                        ${faction.nameEn}
+                    </div>
+
+                    <div class="faction-count">
+                        ${faction.count} CHARACTERS
+                    </div>
+
+                </div>
+
+            `;
+
+            card.addEventListener(
+                "click",
+                () => openFaction(index)
+            );
+
+            factionList.appendChild(card);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   家族陣營選單
+   ========================================================= */
+
+function buildIndexMenu() {
+
+    indexItems.innerHTML = "";
+
+    factions.forEach(
+        (faction, index) => {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "index-item";
+
+            item.innerHTML = `
+
+                <div class="index-number">
+                    ${String(index + 1).padStart(2, "0")}
+                </div>
+
+                <div>
+
+                    <div class="index-name">
+                        ${faction.name}
+                    </div>
+
+                    <span class="index-name-en">
+                        ${faction.nameEn}
+                    </span>
+
+                </div>
+
+            `;
+
+            item.addEventListener(
+                "click",
+                () => {
+
+                    closeIndex();
+
+                    openFaction(index);
+
+                }
+            );
+
+            indexItems.appendChild(item);
+
+        }
+    );
+
+}
+
+
+function toggleIndex() {
+
+    indexMenu.classList.toggle("open");
+
+}
+
+
+function closeIndex() {
+
+    indexMenu.classList.remove("open");
+
+}
+
+
+document.addEventListener(
+    "click",
+    event => {
+
+        const wrapper =
+            document.querySelector(
+                ".index-wrapper"
+            );
+
+        if (
+            !wrapper.contains(
+                event.target
+            )
+        ) {
+
+            closeIndex();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   READER STATE
+   ========================================================= */
+
+let currentFactionIndex = 0;
+
+let currentSpread = 0;
+
+let sheets = [];
+
+let isAnimating = false;
+
+
+/* =========================================================
+   建立章節頁
+   ========================================================= */
+
+function chapterHTML(faction) {
+
+    return `
+
+        <div class="chapter-page">
+
+            <div class="chapter-inner-glow"></div>
+
+            <span class="chapter-corner tl"></span>
+            <span class="chapter-corner tr"></span>
+            <span class="chapter-corner bl"></span>
+            <span class="chapter-corner br"></span>
+
+
+            <div class="chapter-number">
+                CHAPTER ${String(
+                    currentFactionIndex + 1
+                ).padStart(2, "0")}
+            </div>
+
+
+            <div class="chapter-emblem">
+
+                <img
+                    src="${faction.emblem}"
+                    alt="${faction.name}"
+                    onerror="this.style.display='none'"
+                >
+
+            </div>
+
+
+            <div class="chapter-label">
+                FAMILY ARCHIVE
+            </div>
+
+
+            <h1 class="chapter-title">
+                ${faction.name}
+            </h1>
+
+
+            <div class="chapter-title-en">
+                ${faction.nameEn}
+            </div>
+
+
+            <div class="chapter-rule"></div>
+
+
+            <div class="chapter-count">
+                ${faction.count} CHARACTERS
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   OPENING RIGHT PAGE
+   ========================================================= */
+
+function openingHTML(faction) {
+
+    return `
+
+        <div class="opening-page">
+
+            <div class="opening-mark">
+                REBORN! / 20TH ANNIVERSARY
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   A4 IMAGE PAGE
+   ========================================================= */
+
+function imageHTML(character) {
+
+    const isLandscape =
+        character.orientation === "landscape";
+
+    const pageClass =
+        isLandscape
+        ? "art-page landscape-art"
+        : "art-page";
+
+
+    return `
+
+        <div class="${pageClass}">
+
+            <div class="a4-frame">
+
+                <img
+                    src="${character.image}"
+                    alt="${character.name}"
+
+                    onerror="
+                        this.style.display='none';
+                        this.nextElementSibling.style.display='flex';
+                    "
+                >
+
+
+                <div
+                    class="image-placeholder"
+                    style="display:none;"
+                >
+                    ${character.number}
+                    <br><br>
+                    PLACE IMAGE HERE
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   角色介紹頁
+   ========================================================= */
+
+function infoHTML(
+    faction,
+    character,
+    index
+) {
+
+    const isLandscape =
+        character.orientation === "landscape";
+
+    const pageClass =
+        isLandscape
+        ? "info-page landscape-info"
+        : "info-page";
+
+
+    return `
+
+        <div class="${pageClass}">
+
+            ${
+                isLandscape
+                ? ""
+                : `
+                    <div class="info-watermark">
+
+                        <img
+                            src="${faction.emblem}"
+                            alt=""
+                            onerror="this.style.display='none'"
+                        >
+
+                    </div>
+                `
+            }
+
+
+            <div class="info-content">
+
+                <div class="info-topline">
+
+                    <span class="info-index">
+                        ${character.number}
+                    </span>
+
+                    <span class="info-series">
+                        REBORN! / 20TH ANNIVERSARY
+                    </span>
+
+                </div>
+
+
+                <div class="character-name-block">
+
+                    <h1 class="character-name">
+                        ${character.name}
+                    </h1>
+
+                    <div class="character-name-en">
+                        ${character.nameEn}
+                    </div>
+
+                </div>
+
+
+                <div class="gold-rule"></div>
+
+
+                <div class="character-meta">
+
+                    <strong>ILLUSTRATOR</strong>
+                    <span>YOUR NAME</span>
+
+                    <strong>ARCHIVE</strong>
+                    <span>KHR 20TH ANNIVERSARY</span>
+
+                    <strong>FILE</strong>
+                    <span>
+                        ${String(
+                            index + 1
+                        ).padStart(2, "0")}
+                    </span>
+
+                </div>
+
+
+                <div class="character-quote">
+                    ${character.quote}
+                </div>
+
+
+                <div class="character-description">
+                    ${character.description}
+                </div>
+
+
+                <div class="info-footer">
+
+                    <div class="info-credit">
+                        FAN ART ARCHIVE
+                    </div>
+
+                    <div class="info-page-number">
+                        ${String(
+                            index + 1
+                        ).padStart(2, "0")}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   建立翻頁紙
+   =========================================================
+   
+   頁面結構：
+
+   spread 0
+   左：章節頁
+   右：opening
+
+   spread 1
+   左：角色 01 圖片
+   右：角色 01 介紹
+
+   spread 2
+   左：角色 02 圖片
+   右：角色 02 介紹
+
+   spread 3
+   左：角色 03 圖片
+   右：角色 03 介紹
+
+   ...
+   
+   因此：
+   currentSpread = 1 → 角色01
+   currentSpread = 2 → 角色02
+   currentSpread = 3 → 角色03
+
+   左翻：
+   03 → 02
+
+   右翻：
+   02 → 03
+   ========================================================= */
+
+function buildReader(faction) {
+
+    sheetsContainer.innerHTML = "";
+    sheets = [];
+
+    /*
+       翻書結構：
+
+       初始畫面
+       左頁：章節左頁（chapterImages[0]）
+       右頁：章節右頁（chapterImages[1]）
+
+       翻過章節頁後
+       左頁：角色 01 左頁
+       右頁：角色 01 右頁
+
+       再翻一頁
+       左頁：角色 02 左頁
+       右頁：角色 02 右頁
+       ……以此類推。
+
+       因此每個陣營一定會先保留完整的「章節左右跨頁」，
+       翻過這個跨頁後才會進入角色頁。
+    */
+
+    baseLeft.innerHTML =
+        blankPageHTML(
+            `${faction.id}-chapter-left`,
+            faction.chapterImages?.[0] || "",
+            faction.id
+        );
+
+    const characterCount = faction.characters.length;
+
+    /*
+       baseLeft = 章節左頁
+       sheet 0 正面 = 章節右頁
+       sheet 0 背面 = 角色01左頁
+       sheet 1 正面 = 角色01右頁
+       sheet 1 背面 = 角色02左頁
+       ...
+       最後一張 sheet 的背面保留純白，方便結束章節。
+    */
+
+    for (let i = 0; i <= characterCount; i++) {
+
+        const sheet = document.createElement("div");
+        sheet.className = "sheet";
+
+        let frontHTML = "";
+        let backHTML = "";
+
+        if (i === 0) {
+            frontHTML = blankPageHTML(
+                `${faction.id}-chapter-right`,
+                faction.chapterImages?.[1] || "",
+                faction.id
+            );
+        } else {
+            const rightImageIndex = (i - 1) * 2 + 1;
+            frontHTML = blankPageHTML(
+                `${faction.id}-character-${String(i).padStart(2, "0")}-right`,
+                faction.pageImages?.[rightImageIndex] || "",
+                faction.id
+            );
+        }
+
+        if (i < characterCount) {
+            const leftImageIndex = i * 2;
+            backHTML = blankPageHTML(
+                `${faction.id}-character-${String(i + 1).padStart(2, "0")}-left`,
+                faction.pageImages?.[leftImageIndex] || "",
+                faction.id
+            );
+        } else {
+            backHTML = blankPageHTML(
+                `${faction.id}-ending-blank`,
+                "",
+                faction.id
+            );
+        }
+
+        sheet.innerHTML = `
+            <div class="sheet-face">
+                ${frontHTML}
+            </div>
+            <div class="sheet-face sheet-back">
+                ${backHTML}
+            </div>
+        `;
+
+        sheetsContainer.appendChild(sheet);
+        sheets.push(sheet);
+    }
+
+    currentSpread = 0;
+    isAnimating = false;
+
+    sheets.forEach(sheet => {
+        sheet.classList.remove("flipped");
+    });
+
+    updateSheetZ();
+    updateReaderUI();
+}
+
+
+/* =========================================================
+   空白 B5 頁面
+   ========================================================= */
+
+function blankPageHTML(slotName, imageFile = "", factionId = "") {
+
+    const imageSrc =
+        imageFile
+            ? `assets/works/${factionId}/${imageFile}`
+            : "";
+
+    return `
+
+        <div
+            class="blank-page"
+            data-page-slot="${slotName}"
+        >
+
+            <div
+                class="full-bleed-image-slot"
+                data-image-slot="${slotName}"
+            >
+                ${
+                    imageSrc
+                        ? `<img src="${imageSrc}" alt="">`
+                        : ""
+                }
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   SHEET Z-INDEX
+   ========================================================= */
+
+function updateSheetZ() {
+
+    const total =
+        sheets.length;
+
+
+    sheets.forEach(
+        (sheet, index) => {
+
+            if (
+                index < currentSpread
+            ) {
+
+                sheet.style.zIndex =
+                    index + 10;
+
+            } else {
+
+                sheet.style.zIndex =
+                    total + 20 - index;
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   NEXT PAGE
+   ========================================================= */
+
+function nextPage(event) {
+
+    if (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+    }
+
+
+    if (isAnimating) {
+        return;
+    }
+
+
+    const faction =
+        factions[currentFactionIndex];
+
+
+    const maxSpread =
+        faction.characters.length;
+
+
+    /*
+       已經在最後一位角色，
+       再按右邊 → 下一個家族。
+    */
+
+    if (
+        currentSpread >= maxSpread
+    ) {
+
+        nextFaction();
+
+        return;
+
+    }
+
+
+    const sheet =
+        sheets[currentSpread];
+
+
+    if (!sheet) {
+        return;
+    }
+
+
+    isAnimating = true;
+
+
+    /*
+       目前的 sheet 從右頁翻到左頁。
+    */
+
+    sheet.style.zIndex =
+        sheets.length + 100;
+
+
+    sheet.classList.add("flipped");
+
+
+    playFlipSound();
+
+
+    currentSpread++;
+
+
+    updateReaderUI();
+
+
+    setTimeout(
+        () => {
+
+            updateSheetZ();
+
+            isAnimating = false;
+
+        },
+        1400
+    );
+
+}
+
+
+/* =========================================================
+   PREVIOUS PAGE
+   ========================================================= */
+
+function previousPage(event) {
+
+    if (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+    }
+
+
+    if (isAnimating) {
+        return;
+    }
+
+
+    /*
+       在章節頁再按左邊：
+       回到上一個家族。
+    */
+
+    if (
+        currentSpread <= 0
+    ) {
+
+        previousFaction();
+
+        return;
+
+    }
+
+
+    /*
+       例如：
+       角色 03 → 角色 02
+
+       currentSpread = 3
+
+       要解除的是：
+       sheets[2]
+
+       也就是角色 03 所在的翻頁紙。
+    */
+
+    const sheet =
+        sheets[currentSpread - 1];
+
+
+    if (!sheet) {
+        return;
+    }
+
+
+    isAnimating = true;
+
+
+    /*
+       回翻時暫時放到最上層，
+       避免被其他 sheet 蓋住。
+    */
+
+    sheet.style.zIndex =
+        sheets.length + 100;
+
+
+    sheet.classList.remove("flipped");
+
+
+    playFlipSound();
+
+
+    currentSpread--;
+
+
+    updateReaderUI();
+
+
+    setTimeout(
+        () => {
+
+            updateSheetZ();
+
+            isAnimating = false;
+
+        },
+        1400
+    );
+
+}
+
+
+/* =========================================================
+   CATEGORY
+   ========================================================= */
+
+function openFaction(index) {
+
+    closeIndex();
+
+
+    currentFactionIndex =
+        Math.max(
+            0,
+            Math.min(
+                index,
+                factions.length - 1
+            )
+        );
+
+
+    const faction =
+        factions[currentFactionIndex];
+
+
+    home.style.display =
+        "none";
+
+
+    reader.classList.add("active");
+
+
+    readerCategory.textContent =
+        faction.name;
+
+
+    readerCategoryEn.textContent =
+        faction.nameEn;
+
+
+    buildReader(faction);
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "instant"
+    });
+
+}
+
+
+/* =========================================================
+   NEXT FACTION
+   ========================================================= */
+
+function nextFaction() {
+
+    if (
+        currentFactionIndex >=
+        factions.length - 1
+    ) {
+
+        goHome();
+
+        return;
+
+    }
+
+
+    showTransition(
+        currentFactionIndex + 1,
+        () => {
+
+            currentFactionIndex++;
+
+            buildReader(
+                factions[
+                    currentFactionIndex
+                ]
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PREVIOUS FACTION
+   ========================================================= */
+
+function previousFaction() {
+
+    if (
+        currentFactionIndex <= 0
+    ) {
+
+        goHome();
+
+        return;
+
+    }
+
+
+    showTransition(
+        currentFactionIndex - 1,
+        () => {
+
+            currentFactionIndex--;
+
+            buildReader(
+                factions[
+                    currentFactionIndex
+                ]
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   TRANSITION
+   ========================================================= */
+
+function showTransition(
+    factionIndex,
+    callback
+) {
+
+    const overlay =
+        document.getElementById(
+            "categoryTransition"
+        );
+
+
+    const number =
+        document.getElementById(
+            "transitionNumber"
+        );
+
+
+    const title =
+        document.getElementById(
+            "transitionTitle"
+        );
+
+
+    const faction =
+        factions[factionIndex];
+
+
+    number.textContent =
+        `CHAPTER ${String(
+            factionIndex + 1
+        ).padStart(2, "0")}`;
+
+
+    title.textContent =
+        faction.name;
+
+
+    overlay.classList.add("show");
+
+
+    setTimeout(
+        () => {
+
+            callback();
+
+        },
+        500
+    );
+
+
+    setTimeout(
+        () => {
+
+            overlay.classList.remove(
+                "show"
+            );
+
+        },
+        1100
+    );
+
+}
+
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+function goHome() {
+
+    closeIndex();
+
+    reader.classList.remove("active");
+
+    home.style.display =
+        "block";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================================================
+   UI
+   ========================================================= */
+
+function updateReaderUI() {
+
+    const faction =
+        factions[currentFactionIndex];
+
+
+    const total =
+        faction.characters.length + 1;
+
+
+    readerCategory.textContent =
+        faction.name;
+
+
+    readerCategoryEn.textContent =
+        faction.nameEn;
+
+
+    readerCounter.textContent =
+        `${String(
+            currentSpread
+        ).padStart(2, "0")} / ${String(
+            faction.characters.length
+        ).padStart(2, "0")}`;
+
+
+    readerPageCount.textContent =
+        `SPREAD ${String(
+            currentSpread + 1
+        ).padStart(2, "0")} / ${String(
+            total
+        ).padStart(2, "0")}`;
+
+
+    const percentage =
+        total <= 1
+        ? 100
+        : (
+            currentSpread /
+            (total - 1)
+        ) * 100;
+
+
+    readerProgress.style.width =
+        `${percentage}%`;
+
+
+    clickLeft.style.pointerEvents =
+        "auto";
+
+
+    clickRight.style.pointerEvents =
+        "auto";
+
+}
+
+
+/* =========================================================
+   FLIP SOUND
+   ========================================================= */
+
+let audioContext = null;
+
+
+function playFlipSound() {
+
+    try {
+
+        if (!audioContext) {
+
+            audioContext =
+                new (
+                    window.AudioContext ||
+                    window.webkitAudioContext
+                )();
+
+        }
+
+
+        const duration =
+            .18;
+
+
+        const buffer =
+            audioContext.createBuffer(
+                1,
+                audioContext.sampleRate *
+                    duration,
+                audioContext.sampleRate
+            );
+
+
+        const data =
+            buffer.getChannelData(0);
+
+
+        for (
+            let i = 0;
+            i < data.length;
+            i++
+        ) {
+
+            const envelope =
+                1 -
+                i / data.length;
+
+
+            data[i] =
+                (
+                    Math.random() * 2 - 1
+                ) *
+                envelope *
+                .35;
+
+        }
+
+
+        const source =
+            audioContext.createBufferSource();
+
+
+        const filter =
+            audioContext.createBiquadFilter();
+
+
+        const gain =
+            audioContext.createGain();
+
+
+        filter.type =
+            "bandpass";
+
+
+        filter.frequency.value =
+            1800;
+
+
+        filter.Q.value =
+            .65;
+
+
+        gain.gain.value =
+            .18;
+
+
+        source.buffer =
+            buffer;
+
+
+        source
+            .connect(filter)
+            .connect(gain)
+            .connect(
+                audioContext.destination
+            );
+
+
+        source.start();
+
+    }
+
+    catch (error) {
+
+        console.log(
+            "Page sound unavailable."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   KEYBOARD
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            !reader.classList.contains(
+                "active"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            event.key ===
+            "ArrowRight"
+        ) {
+
+            event.preventDefault();
+
+            nextPage();
+
+        }
+
+
+        if (
+            event.key ===
+            "ArrowLeft"
+        ) {
+
+            event.preventDefault();
+
+            previousPage();
+
+        }
+
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            goHome();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+buildFactionList();
+
+buildIndexMenu();
+
+</script>
+
+</body>
+</html>
