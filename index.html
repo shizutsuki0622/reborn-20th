@@ -2556,6 +2556,140 @@ body::before {
         margin-right: 2px;
     }
 }
+
+
+/* =========================================================
+   MUSIC + HOME CREDITS
+   ========================================================= */
+.music-widget {
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    z-index: 1500;
+    font-family: Arial, sans-serif;
+}
+.music-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 42px;
+    padding: 0 16px;
+    border: 1px solid rgba(185,149,74,.45);
+    background: rgba(8,8,8,.92);
+    color: var(--gold-light);
+    letter-spacing: .18em;
+    font-size: 9px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: border-color .3s ease, color .3s ease, background .3s ease;
+}
+.music-toggle:hover {
+    border-color: rgba(216,189,120,.85);
+    color: #fff;
+    background: rgba(16,16,16,.96);
+}
+.music-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #625a4e;
+    box-shadow: 0 0 0 3px rgba(185,149,74,.08);
+}
+.music-widget.playing .music-dot {
+    background: var(--gold-light);
+    box-shadow: 0 0 10px rgba(216,189,120,.65);
+}
+.music-player-panel {
+    position: absolute;
+    left: 0;
+    bottom: calc(100% + 10px);
+    width: 220px;
+    padding: 9px;
+    border: 1px solid rgba(185,149,74,.35);
+    background: rgba(8,8,8,.97);
+    box-shadow: 0 18px 45px rgba(0,0,0,.55);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+}
+.music-widget.open .music-player-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+#youtube-player,
+#youtube-player iframe {
+    display: block;
+    width: 200px !important;
+    height: 200px !important;
+}
+.music-note {
+    margin-top: 8px;
+    color: #777067;
+    font-size: 8px;
+    line-height: 1.6;
+    letter-spacing: .08em;
+}
+.home-credits {
+    width: min(1080px, 90vw);
+    margin: -70px auto 0;
+    padding: 0 0 90px;
+    text-align: center;
+}
+.home-credits::before {
+    content: "";
+    display: block;
+    width: min(560px, 70vw);
+    height: 1px;
+    margin: 0 auto 34px;
+    background: linear-gradient(90deg, transparent, rgba(185,149,74,.45), transparent);
+}
+.credits-kicker {
+    margin-bottom: 22px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: .42em;
+    color: #8f8678;
+}
+.credits-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px 0;
+}
+.credit-link {
+    position: relative;
+    padding: 4px 20px;
+    color: #9d9589;
+    font-size: 14px;
+    letter-spacing: .08em;
+    transition: color .3s ease;
+}
+.credit-link + .credit-link::before {
+    content: "·";
+    position: absolute;
+    left: -2px;
+    color: rgba(185,149,74,.55);
+}
+.credit-link:hover { color: var(--gold-light); }
+.credit-role {
+    margin-right: 6px;
+    color: #6f685e;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: .16em;
+}
+@media (max-width: 760px) {
+    .music-widget { left: 12px; bottom: 12px; }
+    .music-toggle { min-height: 38px; padding: 0 12px; font-size: 8px; }
+    .home-credits { margin-top: -90px; padding-bottom: 75px; }
+    .credits-links { flex-direction: column; gap: 12px; }
+    .credit-link { padding: 2px 10px; }
+    .credit-link + .credit-link::before { display: none; }
+}
+
 </style>
 </head>
 
@@ -2615,6 +2749,20 @@ body::before {
 </header>
 
 
+
+<!-- YouTube BGM control -->
+<div class="music-widget" id="musicWidget">
+    <div class="music-player-panel" id="musicPlayerPanel">
+        <div id="youtube-player"></div>
+        <div class="music-note">YouTube BGM · click MUSIC to play / pause</div>
+    </div>
+    <button class="music-toggle" id="musicToggle" type="button" onclick="toggleMusic()" aria-expanded="false" aria-controls="musicPlayerPanel">
+        <span class="music-dot" aria-hidden="true"></span>
+        <span id="musicToggleText">MUSIC OFF</span>
+    </button>
+</div>
+
+
 <!-- =========================================================
      HOME
      ========================================================= -->
@@ -2669,6 +2817,16 @@ body::before {
         ></div>
 
     </section>
+
+
+    <footer class="home-credits" aria-label="Project credits">
+        <div class="credits-kicker">PROJECT LINKS</div>
+        <div class="credits-links">
+            <a class="credit-link" href="https://www.plurk.com/shizutsuki" target="_blank" rel="noopener noreferrer"><span class="credit-role">主辦</span>Akino靜月</a>
+            <a class="credit-link" href="https://www.plurk.com/silverfeather0802" target="_blank" rel="noopener noreferrer"><span class="credit-role">小精靈</span>水無月銀羽</a>
+            <a class="credit-link" href="https://x.com/khreborn_anime" target="_blank" rel="noopener noreferrer">『家庭教師ヒットマンREBORN!』アニメ公式</a>
+        </div>
+    </footer>
 
 </main>
 
@@ -2792,7 +2950,78 @@ body::before {
 </div>
 
 
+<script src="https://www.youtube.com/iframe_api"></script>
+
 <script>
+
+
+/* =========================================================
+   YOUTUBE BGM
+   ========================================================= */
+let bgmPlayer = null;
+let bgmReady = false;
+let musicPlaying = false;
+
+function onYouTubeIframeAPIReady() {
+    bgmPlayer = new YT.Player("youtube-player", {
+        width: 200,
+        height: 200,
+        videoId: "0h6xXcyha8Q",
+        playerVars: {
+            autoplay: 0,
+            controls: 1,
+            playsinline: 1,
+            rel: 0
+        },
+        events: {
+            onReady: event => {
+                bgmReady = true;
+                event.target.setVolume(25);
+            },
+            onStateChange: event => {
+                if (event.data === YT.PlayerState.PLAYING) {
+                    musicPlaying = true;
+                    syncMusicUI();
+                } else if (event.data === YT.PlayerState.PAUSED) {
+                    musicPlaying = false;
+                    syncMusicUI();
+                } else if (event.data === YT.PlayerState.ENDED) {
+                    event.target.seekTo(0);
+                    event.target.playVideo();
+                }
+            },
+            onAutoplayBlocked: () => {
+                musicPlaying = false;
+                syncMusicUI();
+            }
+        }
+    });
+}
+
+function toggleMusic() {
+    const widget = document.getElementById("musicWidget");
+    widget.classList.add("open");
+
+    if (!bgmReady || !bgmPlayer) return;
+
+    if (musicPlaying) {
+        bgmPlayer.pauseVideo();
+    } else {
+        bgmPlayer.playVideo();
+    }
+}
+
+function syncMusicUI() {
+    const widget = document.getElementById("musicWidget");
+    const text = document.getElementById("musicToggleText");
+    const button = document.getElementById("musicToggle");
+    if (!widget || !text || !button) return;
+
+    widget.classList.toggle("playing", musicPlaying);
+    text.textContent = musicPlaying ? "MUSIC ON" : "MUSIC OFF";
+    button.setAttribute("aria-expanded", widget.classList.contains("open") ? "true" : "false");
+}
+
 
 /* =========================================================
    SITE DATA
